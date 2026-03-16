@@ -37,23 +37,9 @@ const plans = [
 
 export default function Pricing() {
   const [yearly,  setYearly]  = useState(false);
-  const [loading, setLoading] = useState(null);
 
-  const handlePlan = async (plan) => {
-    setLoading(plan.key);
-    try {
-      const res = await fetch(API + '/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan: plan.key }),
-      });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-    } catch (e) {
-      alert('Something went wrong. Please try again.');
-    } finally {
-      setLoading(null);
-    }
+  const handlePlan = (plan) => {
+    window.location.href = '/signup?plan=' + plan.key;
   };
 
   return (
@@ -95,15 +81,9 @@ export default function Pricing() {
 
             <button
               onClick={() => handlePlan(plan)}
-              disabled={loading === plan.key}
               className="glow-btn"
-              style={{
-                width: '100%', padding: '13px', borderRadius: 12, fontSize: 15,
-                background: plan.popular ? 'linear-gradient(135deg, #4f8eff, #7c3aed)' : 'rgba(255,255,255,0.06)',
-                color: '#fff', border: plan.popular ? 'none' : '1px solid rgba(255,255,255,0.12)',
-                marginBottom: 28, opacity: loading === plan.key ? 0.7 : 1,
-              }}>
-              {loading === plan.key ? 'Loading...' : plan.cta}
+              style={{ width: '100%', padding: '13px', borderRadius: 12, fontSize: 15, background: plan.popular ? 'linear-gradient(135deg, #4f8eff, #7c3aed)' : 'rgba(255,255,255,0.06)', color: '#fff', border: plan.popular ? 'none' : '1px solid rgba(255,255,255,0.12)', marginBottom: 28 }}>
+              {plan.cta}
             </button>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>

@@ -7,6 +7,7 @@ import Pricing from './components/Pricing';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 import Success from './pages/Success';
+import Signup from './pages/Signup';
 
 function Home() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/signup"  element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );
